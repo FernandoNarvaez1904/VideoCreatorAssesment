@@ -4,7 +4,7 @@ import express from 'express';
 const app: express.Application = express();
 
 // Take a port 3000 for running server.
-const port: number = 3000;
+const port = 3000;
 
 // Handling '/' Request
 app.get('/', (req, res) => {
