@@ -8,7 +8,7 @@ const port = 3000;
 
 // Handling '/' Request
 app.get('/', (req, res) => {
-  res.send("TypeScript With Express");
+  res.send('TypeScript With Express');
 });
 
 // Server setup
