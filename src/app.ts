@@ -16,6 +16,7 @@ app.use(express.json());
 // Take a port 3000 for running server.
 const port = 3000;
 
+// Top Level Routes
 app.use('/videos', videoRouter);
 app.use('/user', userRouter);
 
@@ -25,6 +26,7 @@ app.listen(port, () => {
          http://localhost:${port}/`);
 });
 
+// Getting database connection ready
 AppDataSource.initialize()
   .then(() => {
     // here you can start to work with your database
