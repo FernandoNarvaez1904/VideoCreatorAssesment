@@ -1,6 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 
+import userRouter from './routers/user.router';
 import videoRouter from './routers/video.router';
 import express from 'express';
 import 'reflect-metadata';
@@ -16,6 +17,7 @@ app.use(express.json());
 const port = 3000;
 
 app.use('/videos', videoRouter);
+app.use('/user', userRouter);
 
 // Server setup
 app.listen(port, () => {
