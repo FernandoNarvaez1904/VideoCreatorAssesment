@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config();
+
 import express from 'express';
 import 'reflect-metadata';
 import { AppDataSource } from './data-source';
