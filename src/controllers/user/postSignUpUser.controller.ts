@@ -24,7 +24,7 @@ const postSignUpUserController: RequestHandler = async (req, res) => {
     if (err instanceof QueryFailedError)
       return res.status(400).json({ message: err.driverError.detail });
     // Giving error feedback to user
-    return res.status(500).json({ message: 'Error creating video' });
+    return res.status(500).json({ message: 'Error Signing Up User' });
   }
 };
 
