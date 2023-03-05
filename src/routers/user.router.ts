@@ -6,6 +6,7 @@ import { expressjwt } from 'express-jwt';
 import getUserProfileController from '../controllers/user/getUserProfile.controller';
 import getUserProfileControllerWithId from '../controllers/user/getUserProfileWithId.controller';
 import postLikeVideoController from '../controllers/user/postLikeVideo.controller';
+import getUserLikedVideosController from '../controllers/user/getUserLikedVideos.controller';
 
 const userRouter = express.Router();
 
@@ -20,6 +21,7 @@ userRouter.use(
 
 userRouter.get('/profile', getUserProfileController);
 userRouter.get('/profile/:id', getUserProfileControllerWithId);
+userRouter.get('/likedVideos', getUserLikedVideosController);
 
 userRouter.post('/signup', postSignUpUserController);
 userRouter.post('/signin', postSignInUserController);
