@@ -18,6 +18,8 @@ const getUserProfileController: RequestHandler = async (
       relations: {
         videos: true,
         likedVideos: true,
+        follows: true,
+        isFollowedBy: true,
       },
     });
 
