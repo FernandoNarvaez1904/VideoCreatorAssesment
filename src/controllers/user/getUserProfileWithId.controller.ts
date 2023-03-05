@@ -25,6 +25,7 @@ const getUserProfileControllerWithId: RequestHandler = async (
       // It is needed to query the relationships
       relations: {
         videos: true,
+        likedVideos: true,
       },
     });
 
