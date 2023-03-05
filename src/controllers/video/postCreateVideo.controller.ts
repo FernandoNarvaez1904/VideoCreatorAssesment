@@ -1,8 +1,14 @@
 import { RequestHandler } from 'express';
 import { AppDataSource } from '../../data-source';
 import Video from '../../entity/Video';
+import { QueryFailedError } from 'typeorm';
+import { Request as JWTRequest } from 'express-jwt';
+import User from '../../entity/User';
 
-const postCreateVideoController: RequestHandler = async (req, res) => {
+const postCreateVideoController: RequestHandler = async (
+  req: JWTRequest,
+  res,
+) => {
   try {
     // Create a new Video object
     const video = new Video();
@@ -11,9 +17,13 @@ const postCreateVideoController: RequestHandler = async (req, res) => {
     video.title = req.body.title;
     video.url = req.body.url;
     video.thumbnailUrl = req.body.thumbnailUrl;
-    video.isPublished = req.body.isPublished;
     video.description = req.body.description;
     video.isPublished = false;
+
+    // Adding user to the video
+    const userRepository = AppDataSource.getRepository(User);
+    const user = await userRepository.findOneByOrFail({ id: req.auth?.id }); // The orFail saves me the if null statement
+    video.user = user;
 
     // Save the new Video object to the database
     const videoRepository = AppDataSource.getRepository(Video);
@@ -23,6 +33,9 @@ const postCreateVideoController: RequestHandler = async (req, res) => {
     return res.status(201).json(video);
   } catch (err) {
     // Giving error feedback to user
+    if (err instanceof QueryFailedError) {
+      return res.status(400).json({ message: err.message });
+    }
     return res.status(500).json({ message: 'Error creating video' });
   }
 };
