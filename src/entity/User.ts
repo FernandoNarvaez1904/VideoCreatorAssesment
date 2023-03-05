@@ -39,7 +39,7 @@ class User {
   @OneToMany(() => Video, (video) => video.user)
   videos: Video[];
 
-  @ManyToMany(() => Video, (video) => video.likedBy)
+  @ManyToMany(() => Video, (video) => video.likedBy, { cascade: true })
   @JoinTable()
   likedVideos: Video[];
 

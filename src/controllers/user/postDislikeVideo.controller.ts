@@ -4,7 +4,7 @@ import { AppDataSource } from '../../data-source';
 import { Request as JWTRequest } from 'express-jwt';
 import Video from '../../entity/Video';
 
-const postLikeVideoController: RequestHandler = async (
+const postDislikeVideoController: RequestHandler = async (
   req: JWTRequest,
   res,
 ) => {
@@ -14,6 +14,9 @@ const postLikeVideoController: RequestHandler = async (
     const user = await userRepository.findOneOrFail({
       where: {
         id: req.auth?.id,
+      },
+      relations: {
+        likedVideos: true,
       },
     });
 
@@ -37,24 +40,27 @@ const postLikeVideoController: RequestHandler = async (
         likedBy: true,
       },
     });
-
     // Check if user has already liked the video
     const isLiked =
       video.likedBy.find((likedUser) => likedUser.id === user.id) !== undefined;
 
-    if (!isLiked) {
-      // Adding current user to the 'likedBy' array of video and updating likes count
-      video.likedBy.push(user);
-      video.likesCount = video.likesCount + 1;
+    if (isLiked) {
+      // Deleting Like
+      user.likedVideos = user.likedVideos.filter((vid) => vid.id !== videoId);
+      await userRepository.save(user);
+
+      // I need to repeat this because object is local
+      video.likesCount -= 1;
+      video.likedBy = video.likedBy.filter((u) => u.id !== user.id);
       await videoRepository.save(video);
     }
 
     // Returning success response with user and videoLiked object
-    return res.status(201).json({ user: user, videoLiked: video });
+    return res.status(201).json({ user: user, videoDisliked: video });
   } catch (err) {
     // Giving error feedback to user
     return res.status(500).json({ message: 'Error liking video' });
   }
 };
 
-export default postLikeVideoController;
+export default postDislikeVideoController;
