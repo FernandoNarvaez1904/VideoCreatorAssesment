@@ -4,10 +4,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import bcrypt from 'bcrypt';
+import Video from './Video';
 
 @Entity()
 class User {
@@ -31,6 +33,9 @@ class User {
 
   @UpdateDateColumn()
   lastUpdateDate: Date;
+
+  @OneToMany(() => Video, (video) => video.user)
+  videos: Video[];
 
   @BeforeInsert()
   @BeforeUpdate()

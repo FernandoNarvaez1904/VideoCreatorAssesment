@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import User from './User';
 
 @Entity()
 class Video {
@@ -31,6 +33,9 @@ class Video {
 
   @UpdateDateColumn()
   lastUpdateDate: Date;
+
+  @ManyToOne(() => User, (user) => user.videos, { nullable: false })
+  user: User;
 }
 
 export default Video;
