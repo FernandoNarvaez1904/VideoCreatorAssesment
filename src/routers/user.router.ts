@@ -3,6 +3,7 @@ import postSignUpUserController from '../controllers/user/postSignUpUser.control
 import postSignInUserController from '../controllers/user/postSignInUser.controller';
 import { Secret } from 'jsonwebtoken';
 import { expressjwt } from 'express-jwt';
+import getUserProfileController from '../controllers/user/getUserProfile.controller';
 
 const userRouter = express.Router();
 
@@ -14,6 +15,8 @@ userRouter.use(
     path: ['/user/signin', '/user/signup'],
   }),
 );
+
+userRouter.get('/profile', getUserProfileController);
 
 userRouter.post('/signup', postSignUpUserController);
 userRouter.post('/signin', postSignInUserController);
