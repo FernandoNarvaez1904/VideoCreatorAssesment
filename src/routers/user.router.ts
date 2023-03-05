@@ -9,6 +9,7 @@ import postLikeVideoController from '../controllers/user/postLikeVideo.controlle
 import getUserLikedVideosController from '../controllers/user/getUserLikedVideos.controller';
 import getUserLikedVideosControllerWithId from '../controllers/user/getUserLikedVideosWithId.controller';
 import postDislikeVideoController from '../controllers/user/postDislikeVideo.controller';
+import postFollowUserController from '../controllers/user/postFollowUser.controller';
 
 const userRouter = express.Router();
 
@@ -30,5 +31,6 @@ userRouter.post('/signup', postSignUpUserController);
 userRouter.post('/signin', postSignInUserController);
 userRouter.post('/likeVideo', postLikeVideoController);
 userRouter.post('/dislikeVideo', postDislikeVideoController);
+userRouter.post('/follow', postFollowUserController);
 
 export default userRouter;
