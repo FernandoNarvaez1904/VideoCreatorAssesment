@@ -41,9 +41,8 @@ class Video {
   @ManyToMany(() => User, (user) => user.likedVideos)
   likedBy: User[];
 
-  get likesCount(): number {
-    return this.likedBy.length;
-  }
+  @Column({ default: 0 })
+  likesCount: number;
 }
 
 export default Video;
