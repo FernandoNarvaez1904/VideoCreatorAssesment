@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -36,6 +37,13 @@ class Video {
 
   @ManyToOne(() => User, (user) => user.videos, { nullable: false })
   user: User;
+
+  @ManyToMany(() => User, (user) => user.likedVideos)
+  likedBy: User[];
+
+  get likesCount(): number {
+    return this.likedBy.length;
+  }
 }
 
 export default Video;

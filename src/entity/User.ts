@@ -4,6 +4,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -36,6 +38,10 @@ class User {
 
   @OneToMany(() => Video, (video) => video.user)
   videos: Video[];
+
+  @ManyToMany(() => Video, (video) => video.likedBy)
+  @JoinTable()
+  likedVideos: Video[];
 
   @BeforeInsert()
   @BeforeUpdate()
