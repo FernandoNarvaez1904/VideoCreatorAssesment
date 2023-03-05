@@ -43,6 +43,13 @@ class User {
   @JoinTable()
   likedVideos: Video[];
 
+  @ManyToMany(() => User, (user) => user.isFollowedBy)
+  @JoinTable()
+  follows: User[];
+
+  @ManyToMany(() => User, (user) => user.follows)
+  isFollowedBy: User[];
+
   @BeforeInsert()
   @BeforeUpdate()
   async encryptPassword() {
