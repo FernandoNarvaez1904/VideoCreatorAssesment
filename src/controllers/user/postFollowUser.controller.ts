@@ -27,6 +27,7 @@ const postFollowUserController: RequestHandler = async (
         .status(400)
         .json({ message: 'The provided id must be a number' });
     }
+
     const otherUser = await userRepository.findOneOrFail({
       where: {
         id: userId,
@@ -37,10 +38,24 @@ const postFollowUserController: RequestHandler = async (
       },
     });
 
+    // Check if user already follows otherUser
+    const isAlreadyFollowed =
+      user.follows.find((u) => u.id === otherUser.id) !== undefined;
+    if (isAlreadyFollowed) {
+      // Give error feedback
+      return res.status(400).json({
+        message: `User "${user.username}" is already following User "${otherUser.username}"`,
+      });
+    }
+
+    // Check if trying to follow myself, if yes returning error
+    if (otherUser.id === user.id) {
+      return res.status(400).json({ message: 'You cannot follow yourself' });
+    }
+
     // Following otherUser
     user.follows.push(otherUser);
     await userRepository.save(user);
-
     // Returning success response with user and videoLiked object
     return res.status(201).json(user);
   } catch (err) {
