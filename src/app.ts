@@ -4,6 +4,7 @@ require('dotenv').config();
 import userRouter from './routers/user.router';
 import videoRouter from './routers/video.router';
 import express from 'express';
+import cors from 'cors';
 import 'reflect-metadata';
 import { AppDataSource } from './data-source';
 
@@ -13,8 +14,10 @@ const app: express.Application = express();
 // Use the built-in JSON body parsing middleware
 app.use(express.json());
 
+app.use(cors());
+
 // Take a port 3000 for running server.
-const port = 3000;
+const port = 3001;
 
 // Top Level Routes
 app.use('/videos', videoRouter);
