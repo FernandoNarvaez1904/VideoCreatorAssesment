@@ -2,7 +2,7 @@
 require('dotenv').config();
 import { DataSource } from 'typeorm';
 
-const port: number = Number.isInteger(process.env.PGPORT)
+const port: number = Number(process.env.PGPORT)
   ? Number(process.env.PGPORT)
   : 5432;
 

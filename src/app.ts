@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cors());
 
 // Take a port 3000 for running server.
-const port = 3001;
+const port = process.env.PORT || 3000;
 
 // Top Level Routes
 app.use('/videos', videoRouter);
