@@ -1,4 +1,6 @@
-# Awesome Project Build with TypeORM
+# Awesome Video Creator
+
+This api is deployed at  https://videocreatorassesment-production.up.railway.app/
 
 Steps to run this project:
 
