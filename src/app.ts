@@ -16,7 +16,10 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: process.env.CORS_ALLOWED,
+    origin: [
+      process.env.CORS_ALLOWED as string,
+      'https://videocreatorassesment-production.up.railway.app',
+    ],
     methods: ['GET', 'POST'], // specify allowed methods
     allowedHeaders: ['Content-Type', 'Authorization'],
   }),
