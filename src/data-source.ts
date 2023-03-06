@@ -2,17 +2,17 @@
 require('dotenv').config();
 import { DataSource } from 'typeorm';
 
-const port: number = Number.isInteger(process.env.DATABASE_PORT)
-  ? Number(process.env.DATABASE_PORT)
+const port: number = Number.isInteger(process.env.PGPORT)
+  ? Number(process.env.PGPORT)
   : 5432;
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
   port: port,
-  host: process.env.DATABASE_HOST,
-  username: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASS,
-  database: process.env.DATABASE_NAME,
+  host: process.env.PGHOST,
+  username: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  database: process.env.PGDATABASE,
   logging: true,
   entities: ['./src/entity/*.ts'],
   subscribers: [],
