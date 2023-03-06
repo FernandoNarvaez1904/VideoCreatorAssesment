@@ -14,7 +14,13 @@ const app: express.Application = express();
 // Use the built-in JSON body parsing middleware
 app.use(express.json());
 
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CORS_ALLOWED,
+    methods: ['GET', 'POST'], // specify allowed methods
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  }),
+);
 
 // Take a port 3000 for running server.
 const port = process.env.PORT || 3000;
