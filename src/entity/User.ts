@@ -50,6 +50,9 @@ class User {
   @ManyToMany(() => User, (user) => user.follows)
   isFollowedBy: User[];
 
+  @Column({ nullable: true })
+  profilePictureUrl: string;
+
   @BeforeInsert()
   @BeforeUpdate()
   async encryptPassword() {
