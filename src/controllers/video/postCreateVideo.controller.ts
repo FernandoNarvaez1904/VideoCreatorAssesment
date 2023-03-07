@@ -12,13 +12,12 @@ const postCreateVideoController: RequestHandler = async (
   try {
     // Create a new Video object
     const video = new Video();
-
     // Set the properties of the Video object from the request body
     video.title = req.body.title;
     video.url = req.body.url;
     video.thumbnailUrl = req.body.thumbnailUrl;
     video.description = req.body.description;
-    video.isPublished = false;
+    video.isPublished = req.body.isPublished ?? false;
 
     // Adding user to the video
     const userRepository = AppDataSource.getRepository(User);
