@@ -2,6 +2,7 @@ import { RequestHandler } from 'express';
 import User from '../../entity/User';
 import { AppDataSource } from '../../data-source';
 import jwt from 'jsonwebtoken';
+import { EntityNotFoundError } from 'typeorm';
 
 const postSignInUserController: RequestHandler = async (req, res) => {
   try {
@@ -23,6 +24,9 @@ const postSignInUserController: RequestHandler = async (req, res) => {
     const accessToken = jwt.sign({ id: user.id }, secretKey);
     return res.status(201).json({ token: accessToken });
   } catch (err) {
+    if (err instanceof EntityNotFoundError) {
+      return res.status(400).json({ message: err.message });
+    }
     // Giving error feedback to user
     return res.status(500).json({ message: 'Error Signing In User' });
   }
