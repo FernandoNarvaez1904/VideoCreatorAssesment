@@ -13,6 +13,7 @@ const postSignUpUserController: RequestHandler = async (req, res) => {
     user.firstName = req.body.firstName;
     user.lastName = req.body.lastName;
     user.password = req.body.password;
+    user.email = req.body.email;
 
     // Save the new User object to the database
     const userRepository = AppDataSource.getRepository(User);
