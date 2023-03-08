@@ -18,8 +18,12 @@ const getVideoDetailsController: RequestHandler = async (req, res) => {
     }
 
     // Getting video from id provided by user
-    const video = await videoRepository.findOneByOrFail({
-      id: videoId,
+    const video = await videoRepository.findOneOrFail({
+      where: { id: videoId },
+      relations: {
+        likedBy: true,
+        user: true,
+      },
     });
     // Send a 201 Created response with the updated Video object as JSON
     return res.status(201).json(video);
